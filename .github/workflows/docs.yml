@@ -1,4 +1,4 @@
-name: Deploy Docs to GitHub Pages
+name: Deploy Documentation
 
 on:
   push:
@@ -6,54 +6,35 @@ on:
       - main
     paths:
       - "docs/**"
-      - ".github/workflows/docs.yml"
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
-          cache-dependency-path: docs/package-lock.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Install dependencies
-        working-directory: docs
-        run: npm ci
-
-      - name: Build docs
-        working-directory: docs
-        run: npm run build
+      - name: Build Documentation
+        run: |
+          mkdir -p _site
+          cp docs/*.md _site/ 2>/dev/null || true
+          cp docs/README.md _site/index.md
+          cp -r docs/recipes _site/ 2>/dev/null || true
+          cp -r docs/tutorials _site/ 2>/dev/null || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vuepress/dist
+          path: '_site'
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
