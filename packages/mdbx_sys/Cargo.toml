@@ -1,7 +1,11 @@
 [package]
 name = "mdbx-sys"
-version = "0.0.0"
+version = "1.0.0"
+authors = ["Usama Sarwar <usamasarwar@users.noreply.github.com>"]
 edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/usamasarwar/isar_db"
+description = "MDBX bindings for Isar DB"
 
 [lib]
 name = "mdbx_sys"
