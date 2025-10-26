@@ -41,6 +41,7 @@ for (const locale of locales) {
 }
 
 export default defineUserConfig({
+    base: '/isar_db/',
     locales: vueLocales,
     bundler: viteBundler({}),
     theme: defaultTheme({
