@@ -16,9 +16,7 @@
   <a href="https://app.codecov.io/gh/usamasarwar/isar_db">
     <img src="https://img.shields.io/codecov/c/github/usamasarwar/isar_db?logo=codecov&logoColor=fff&labelColor=333940&flag=isar_db">
   </a>
-  <a href="https://t.me/isardb">
-    <img src="https://img.shields.io/static/v1?label=join&message=Isar%20%26%20Hive&labelColor=333940&logo=telegram&logoColor=white&color=229ED9">
-  </a>
+
   <a href="https://twitter.com/usamasarwarpro">
     <img src="https://img.shields.io/twitter/follow/usamasarwarpro?style=social">
   </a>
@@ -103,8 +101,6 @@ Isar database can do much more (and we are just getting started)
 - 🧪 **ACID semantics**. Rely on database consistency
 - 💃 **Static typing**. Compile-time checked and autocompleted queries
 - ✨ **Beautiful documentation**. Readable, easy to understand and ever-improving
-
-Join the [Telegram group](https://t.me/isardb) for discussion and sneak peeks of new versions of the DB.
 
 If you want to say thank you, star us on GitHub and like us on pub.dev 🙌💙
 
