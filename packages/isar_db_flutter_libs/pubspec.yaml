@@ -27,8 +27,5 @@ flutter:
         pluginClass: IsarDbFlutterLibsPlugin
       windows:
         pluginClass: IsarDbFlutterLibsPlugin
-      web:
+            web:
         default_package: isar_db_flutter_libs
-
-  assets:
-    - web/isar.wasm
