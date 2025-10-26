@@ -1,6 +1,6 @@
 name: isar_db_inspector
 description: Real-time database inspector for Isar DB. View collections, execute queries, and debug your Isar database during development with a beautiful and intuitive interface.
-version: 1.0.0
+version: 1.0.1+1
 repository: https://github.com/usamasarwar/isar_db
 homepage: https://github.com/usamasarwar/isar_db
 issue_tracker: https://github.com/usamasarwar/isar_db/issues
