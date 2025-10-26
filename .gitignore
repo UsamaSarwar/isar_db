@@ -69,3 +69,5 @@ local.properties
 *.info
 *.profraw
 *.json
+# Exception: track the placeholder wasm file
+!packages/isar_db_flutter_libs/web/isar.wasm

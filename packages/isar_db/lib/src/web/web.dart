@@ -48,7 +48,7 @@ class IsarCorePlatformImpl implements IsarCorePlatform {
   @override
   // ignore: invalid_override - web platform specific
   FutureOr<IsarCoreBindings> initializeBindings([String? library]) async {
-    final url = library ?? 'https://github.com/usamasarwar/isar_db/releases/latest/download/isar.wasm';
+    final url = library ?? 'packages/isar_db_flutter_libs/web/isar.wasm';
 
     final env = JSObject()..['js_error'] = _jsError.toJS;
     final import = JSObject()..['env'] = env;
