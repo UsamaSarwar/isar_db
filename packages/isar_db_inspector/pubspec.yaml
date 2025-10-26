@@ -6,7 +6,7 @@ homepage: https://github.com/usamasarwar/isar_db
 issue_tracker: https://github.com/usamasarwar/isar_db/issues
 
 environment:
-  sdk: ">=3.7.0 <5.0.0"
+  sdk: ">=3.7.0 <4.0.0"
   flutter: ">=3.24.0"
 
 dependencies:
