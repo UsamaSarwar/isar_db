@@ -1,7 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:isar/isar.dart';
+import 'package:isar_db/isar_db.dart';
 import 'package:isar_test/src/common.dart';
 import 'package:path/path.dart' as path;
 

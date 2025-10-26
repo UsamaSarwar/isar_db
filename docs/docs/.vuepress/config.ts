@@ -45,19 +45,19 @@ export default defineUserConfig({
     bundler: viteBundler({}),
     theme: defaultTheme({
         logo: "/isar.svg",
-        repo: "isar/isar",
-        docsRepo: "isar/isar",
+        repo: "usamasarwar/isar_db",
+        docsRepo: "usamasarwar/isar_db",
         docsDir: "docs/docs",
         contributors: true,
         locales: themeLocales,
         navbar: [
             {
                 text: "pub.dev",
-                link: "https://pub.dev/packages/isar",
+                link: "https://pub.dev/packages/isar_db",
             },
             {
                 text: "API",
-                link: "https://pub.dev/documentation/isar/latest/isar/isar-library.html",
+                link: "https://pub.dev/documentation/isar_db/latest/isar_db/isar_db-library.html",
             },
             {
                 text: "Telegram",
@@ -109,8 +109,8 @@ export default defineUserConfig({
                 href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap",
             },
         ],
-        ["meta", { name: "application-name", content: "Isar Database" }],
-        ["meta", { name: "apple-mobile-web-app-title", content: "Isar Database" }],
+        ["meta", { name: "application-name", content: "Isar DB" }],
+        ["meta", { name: "apple-mobile-web-app-title", content: "Isar DB" }],
         [
             "meta",
             { name: "apple-mobile-web-app-status-bar-style", content: "black" },
@@ -179,15 +179,15 @@ function getSidebar({ locale, tutorials, concepts, recipes, sampleApps, chnagelo
         },
         {
             text: sampleApps,
-            link: "https://github.com/isar/isar/tree/main/examples",
+            link: "https://github.com/usamasarwar/isar_db/tree/main/examples",
         },
         {
             text: chnagelog,
-            link: "https://github.com/isar/isar/blob/main/packages/isar/CHANGELOG.md",
+            link: "https://github.com/usamasarwar/isar_db/blob/main/packages/isar_db/CHANGELOG.md",
         },
         {
             text: contributors,
-            link: "https://github.com/isar/isar#contributors-",
+            link: "https://github.com/usamasarwar/isar_db#contributors-",
         },
     ]
 }

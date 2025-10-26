@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_db/isar_db.dart';
 import 'package:pub_app/asset_loader.dart';
 import 'package:pub_app/models/asset.dart';
 import 'package:pub_app/models/package.dart';
@@ -19,7 +19,15 @@ class PackageManager {
         .optional(version != null, (q) => q.versionEqualTo(version!))
         .build();
 
-    await for (final results in query.watch(fireImmediately: true)) {
+    // Emit current results immediately
+    final currentResults = await query.findAllAsync();
+    if (currentResults.isNotEmpty) {
+      yield currentResults.first;
+    }
+
+    // Then watch for changes
+    await for (final _ in query.watch()) {
+      final results = await query.findAllAsync();
       if (results.isNotEmpty) {
         yield results.first;
       }
@@ -27,10 +35,17 @@ class PackageManager {
   }
 
   Stream<List<Package>> watchPackageVersions(String name) async* {
-    final query =
-        isar.packages.where().nameEqualTo(name).sortByPublishedDesc().build();
+    final query = isar.packages.where().nameEqualTo(name).sortByPublishedDesc().build();
 
-    await for (final results in query.watch(fireImmediately: true)) {
+    // Emit current results immediately
+    final currentResults = await query.findAllAsync();
+    if (currentResults.isNotEmpty) {
+      yield currentResults;
+    }
+
+    // Then watch for changes
+    await for (final _ in query.watch()) {
+      final results = await query.findAllAsync();
       if (results.isNotEmpty) {
         yield results;
       }
@@ -38,14 +53,17 @@ class PackageManager {
   }
 
   Stream<String> watchLatestVersion(String name) async* {
-    final query = isar.packages
-        .where()
-        .nameEqualTo(name)
-        .isLatestEqualTo(true)
-        .versionProperty()
-        .build();
+    final query = isar.packages.where().nameEqualTo(name).isLatestEqualTo(true).versionProperty().build();
 
-    await for (final results in query.watch(fireImmediately: true)) {
+    // Emit current results immediately
+    final currentResults = await query.findAllAsync();
+    if (currentResults.isNotEmpty) {
+      yield currentResults.first;
+    }
+
+    // Then watch for changes
+    await for (final _ in query.watch()) {
+      final results = await query.findAllAsync();
       if (results.isNotEmpty) {
         yield results.first;
       }
@@ -53,22 +71,17 @@ class PackageManager {
   }
 
   Stream<String?> watchPreReleaseVersion(String name) async* {
-    await for (final _ in isar.packages.watchLazy(fireImmediately: true)) {
-      final latestDate = await isar.packages
-          .where()
-          .nameEqualTo(name)
-          .isLatestEqualTo(true)
-          .publishedProperty()
-          .findFirstAsync();
+    // Emit current result immediately
+    final latestDate = await isar.packages.where().nameEqualTo(name).isLatestEqualTo(true).publishedProperty().findFirstAsync();
+    if (latestDate != null) {
+      yield await isar.packages.where().nameEqualTo(name).publishedGreaterThan(latestDate).sortByPublishedDesc().versionProperty().findFirstAsync();
+    }
 
+    // Then watch for changes
+    await for (final _ in isar.packages.watch()) {
+      final latestDate = await isar.packages.where().nameEqualTo(name).isLatestEqualTo(true).publishedProperty().findFirstAsync();
       if (latestDate != null) {
-        yield await isar.packages
-            .where()
-            .nameEqualTo(name)
-            .publishedGreaterThan(latestDate)
-            .sortByPublishedDesc()
-            .versionProperty()
-            .findFirstAsync();
+        yield await isar.packages.where().nameEqualTo(name).publishedGreaterThan(latestDate).sortByPublishedDesc().versionProperty().findFirstAsync();
       }
     }
   }
@@ -79,23 +92,15 @@ class PackageManager {
     String? version,
   }) async {
     final newPackageVersions = await repository.getPackageVersions(name);
-    final latestExistingDate =
-        isar.packages.where().nameEqualTo(name).publishedProperty().max();
+    final latestExistingDate = isar.packages.where().nameEqualTo(name).publishedProperty().max();
     final versionsToAdd = newPackageVersions
         .where(
-          (e) =>
-              e.published.millisecondsSinceEpoch >
-              (latestExistingDate?.millisecondsSinceEpoch ?? 0),
+          (e) => e.published.millisecondsSinceEpoch > (latestExistingDate?.millisecondsSinceEpoch ?? 0),
         )
         .toList();
 
-    final currentLatest = isar.packages
-        .where()
-        .nameEqualTo(name)
-        .isLatestEqualTo(true)
-        .findFirst();
-    final newLatestVersion =
-        newPackageVersions.firstWhere((e) => e.isLatest).version;
+    final currentLatest = isar.packages.where().nameEqualTo(name).isLatestEqualTo(true).findFirst();
+    final newLatestVersion = newPackageVersions.firstWhere((e) => e.isLatest).version;
     if (currentLatest != null && currentLatest.version != newLatestVersion) {
       versionsToAdd.add(currentLatest.copyWith(isLatest: false));
     }
@@ -103,9 +108,7 @@ class PackageManager {
     if (loadMetrics) {
       version ??= newLatestVersion;
       final metrics = await repository.getPackageMetrics(name, version);
-      final package = newPackageVersions
-          .firstWhere((e) => e.version == version)
-          .copyWithMetrics(metrics);
+      final package = newPackageVersions.firstWhere((e) => e.version == version).copyWithMetrics(metrics);
       versionsToAdd.add(package);
     }
     isar.write((isar) {
@@ -117,21 +120,13 @@ class PackageManager {
     String name,
     String version,
   ) async* {
-    final query = isar.assets
-        .where()
-        .packageEqualTo(name)
-        .versionEqualTo(version)
-        .build();
+    final query = isar.assets.where().packageEqualTo(name).versionEqualTo(version).build();
 
     final existing = await query.findAllAsync();
     if (existing.isNotEmpty) {
       yield {for (final asset in existing) asset.kind: asset.content};
     } else {
-      final existingAnyVersion = await isar.assets
-          .where()
-          .packageEqualTo(name)
-          .sortByVersionDesc()
-          .findAllAsync();
+      final existingAnyVersion = await isar.assets.where().packageEqualTo(name).sortByVersionDesc().findAllAsync();
       if (existingAnyVersion.isNotEmpty) {
         final assets = <AssetKind, String>{};
         for (final asset in existingAnyVersion) {
@@ -143,7 +138,8 @@ class PackageManager {
       }
     }
 
-    await for (final results in query.watch()) {
+    await for (final _ in query.watch()) {
+      final results = await query.findAllAsync();
       if (results.isNotEmpty) {
         yield {for (final asset in results) asset.kind: asset.content};
       }
@@ -188,12 +184,17 @@ class PackageManager {
     }
   }
 
-  Stream<List<String>> watchFavoriteNames() {
-    return isar.packages
-        .where()
-        .flutterFavoriteEqualTo(true)
-        .distinctByName()
-        .nameProperty()
-        .watch(fireImmediately: true);
+  Stream<List<String>> watchFavoriteNames() async* {
+    final query = isar.packages.where().flutterFavoriteEqualTo(true).distinctByName().nameProperty().build();
+
+    // Emit current results immediately
+    final currentResults = await query.findAllAsync();
+    yield currentResults;
+
+    // Then watch for changes
+    await for (final _ in query.watch()) {
+      final results = await query.findAllAsync();
+      yield results;
+    }
   }
 }

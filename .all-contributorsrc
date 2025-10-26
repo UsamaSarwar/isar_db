@@ -1,10 +1,24 @@
 {
   "files": [
-    "packages/isar/README.md"
+    "packages/isar_db/README.md"
   ],
   "imageSize": 100,
   "commit": false,
   "contributors": [
+    {
+      "login": "UsamaSarwar",
+      "name": "Usama Sarwar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41544718?v=4",
+      "profile": "https://github.com/UsamaSarwar",
+      "contributions": [
+        "maintenance",
+        "code",
+        "doc",
+        "bug",
+        "example",
+        "test"
+      ]
+    },
     {
       "login": "Jtplouffe",
       "name": "JT",
@@ -214,8 +228,8 @@
   "contributorTemplate": "<a href=\"https://github.com/<%= contributor.login %>\"><img src=\"<%= contributor.avatar_url %>\" width=\"<%= options.imageSize %>px;\" alt=\"\"/><br /><sub><b><%= contributor.name %></b></sub></a>",
   "contributorsPerLine": 7,
   "contributorsSortAlphabetically": true,
-  "projectName": "isar",
-  "projectOwner": "isar",
+  "projectName": "isar_db",
+  "projectOwner": "usamasarwar",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,

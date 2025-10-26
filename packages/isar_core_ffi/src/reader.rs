@@ -255,7 +255,10 @@ pub unsafe extern "C" fn isar_read_to_json(
     };
 
     if serialized {
-        let (ptr, len, cap) = new_buffer.into_raw_parts();
+        let cap = new_buffer.capacity();
+        let len = new_buffer.len();
+        let ptr = new_buffer.as_mut_ptr();
+        std::mem::forget(new_buffer);
         *buffer_size = cap as u32;
         *buffer = ptr;
         len as u32

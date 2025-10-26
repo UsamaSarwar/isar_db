@@ -1,0 +1,8 @@
+builders:
+  isar_db_generator:
+    import: "package:isar_db/src/generator/isar_db_generator.dart"
+    builder_factories: ["getIsarGenerator"]
+    build_extensions: { ".dart": ["isar_db_generator.g.part"] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]

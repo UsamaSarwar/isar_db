@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_db/isar_db.dart';
 import 'package:pub_app/models/asset.dart';
 import 'package:pub_app/models/package.dart';
 import 'package:pub_app/repository.dart';
@@ -37,8 +37,7 @@ Future<void> loadAssets(PackageAndVersion p) async {
           kind: AssetKind.readme,
           content: content,
         );
-      } else if (changelog == null &&
-          entry.name.toLowerCase() == 'changelog.md') {
+      } else if (changelog == null && entry.name.toLowerCase() == 'changelog.md') {
         final content = await entry.contents.transform(utf8.decoder).join();
         changelog = Asset(
           package: p.package,

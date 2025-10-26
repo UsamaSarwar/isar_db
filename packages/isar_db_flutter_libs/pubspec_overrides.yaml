@@ -1,0 +1,3 @@
+dependency_overrides:
+  isar_db:
+    path: ../isar_db

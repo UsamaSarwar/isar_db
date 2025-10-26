@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_db/isar_db.dart';
 
 part 'asset.g.dart';
 

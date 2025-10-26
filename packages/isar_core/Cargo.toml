@@ -2,7 +2,7 @@
 name = "isar-core"
 version = "0.0.0"
 authors = ["Simon Choi"]
-edition = "2024"
+edition = "2021"
 
 [dependencies]
 itertools = "0.14"

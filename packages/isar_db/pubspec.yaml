@@ -1,0 +1,35 @@
+name: isar_db
+description: Extremely fast, easy to use, and fully async NoSQL database for Flutter. Community-maintained fork of the discontinued Isar project with enhanced features, updated dependencies, and production-ready improvements.
+version: 1.0.0
+repository: https://github.com/usamasarwar/isar_db
+homepage: https://github.com/usamasarwar/isar_db
+issue_tracker: https://github.com/usamasarwar/isar_db/issues
+documentation: https://github.com/usamasarwar/isar_db
+funding:
+  - https://buymeacoffee.com/usamasarwar
+topics:
+  - database
+  - isar
+  - isar-db
+  - sqlite
+  - encryption
+  - storage
+  - flutter
+  - dart
+
+environment:
+  sdk: ">=3.7.0 <5.0.0"
+
+dependencies:
+  analyzer: ">=6.5.0 <8.0.0"
+  build: ^2.4.1
+  ffi: ^2.1.1
+  meta: ^1.16.0
+  source_gen: ">=2.0.0 <3.0.0"
+  web: ^1.1.0
+
+dev_dependencies:
+  build_test: ^3.2.1
+  ffigen: ^19.0.0
+  test: ^1.25.8
+  very_good_analysis: ^10.0.0

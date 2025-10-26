@@ -1,0 +1,33 @@
+name: isar_db_inspector
+description: Real-time database inspector for Isar DB. View collections, execute queries, and debug your Isar database during development with a beautiful and intuitive interface.
+version: 1.0.0
+repository: https://github.com/usamasarwar/isar_db
+homepage: https://github.com/usamasarwar/isar_db
+issue_tracker: https://github.com/usamasarwar/isar_db/issues
+
+environment:
+  sdk: ">=3.7.0 <5.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.5.1
+  flutter_svg: ^2.0.15
+  font_awesome_flutter: ^10.7.0
+  go_router: ^15.1.2
+  google_fonts: ^6.2.1
+  isar_db:
+    path: ../isar_db
+  vm_service: ^15.0.0
+  web: ^1.1.1
+  web_socket_channel: ^3.0.2
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/logo.png

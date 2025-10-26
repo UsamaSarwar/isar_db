@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_db/isar_db.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pub_app/models/asset.dart';
 import 'package:pub_app/models/package.dart';
@@ -73,8 +73,7 @@ final preReleaseVersionPod = StreamProvider.family<String?, String>((
   yield* manager.watchPreReleaseVersion(name);
 });
 
-final assetsPod =
-    StreamProvider.family<Map<AssetKind, String>, PackageNameVersion>((
+final assetsPod = StreamProvider.family<Map<AssetKind, String>, PackageNameVersion>((
   ref,
   package,
 ) async* {
@@ -93,10 +92,7 @@ class PackageNameVersion {
   int get hashCode => Object.hash(name, version);
 
   @override
-  bool operator ==(Object other) =>
-      other is PackageNameVersion &&
-      name == other.name &&
-      version == other.version;
+  bool operator ==(Object other) => other is PackageNameVersion && name == other.name && version == other.version;
 }
 
 class QueryPage {
@@ -109,6 +105,5 @@ class QueryPage {
   int get hashCode => Object.hash(query, page);
 
   @override
-  bool operator ==(Object other) =>
-      other is QueryPage && query == other.query && page == other.page;
+  bool operator ==(Object other) => other is QueryPage && query == other.query && page == other.page;
 }

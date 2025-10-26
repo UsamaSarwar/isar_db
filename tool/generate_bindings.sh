@@ -2,9 +2,9 @@
 
 cargo install cbindgen
 
-cbindgen --config tool/cbindgen.toml --crate isar --output packages/isar/isar-dart.h
+cbindgen --config tool/cbindgen.toml --crate isar --output packages/isar_db/isar-dart.h
 
-cd packages/isar
+cd packages/isar_db
 
 dart pub get
 dart run ffigen --config ffigen.yaml

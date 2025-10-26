@@ -1,5 +1,5 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_db/isar_db.dart';
 import 'package:pub_app/models/api/metrics.dart';
 import 'package:pub_app/models/api/package.dart';
 import 'package:pubspec/pubspec.dart';
@@ -96,10 +96,8 @@ class Package {
   }
 
   Package copyWithMetrics(ApiPackageMetrics metrics) {
-    final publishers =
-        metrics.tags.where((t) => t.startsWith('publisher:')).toList();
-    final publisher =
-        publishers.isNotEmpty ? publishers.first.substring(10) : null;
+    final publishers = metrics.tags.where((t) => t.startsWith('publisher:')).toList();
+    final publisher = publishers.isNotEmpty ? publishers.first.substring(10) : null;
     return copyWith(
       points: metrics.grantedPoints,
       likes: metrics.likeCount,
@@ -110,10 +108,7 @@ class Package {
       flutterFavorite: metrics.tags.contains('is:flutter-favorite'),
       license: metrics.tags
           .firstWhere(
-            (e) =>
-                e.startsWith('license:') &&
-                e != 'license:osi-approved' &&
-                e != 'license:fsf-libre',
+            (e) => e.startsWith('license:') && e != 'license:osi-approved' && e != 'license:fsf-libre',
             orElse: () => 'license:unknown',
           )
           .substring(8)
@@ -121,13 +116,11 @@ class Package {
       osiLicense: metrics.tags.contains('license:osi-approved'),
       platforms: [
         if (metrics.tags.contains('platform:web')) SupportedPlatform.web,
-        if (metrics.tags.contains('platform:android'))
-          SupportedPlatform.android,
+        if (metrics.tags.contains('platform:android')) SupportedPlatform.android,
         if (metrics.tags.contains('platform:ios')) SupportedPlatform.ios,
         if (metrics.tags.contains('platform:linux')) SupportedPlatform.linux,
         if (metrics.tags.contains('platform:macos')) SupportedPlatform.macos,
-        if (metrics.tags.contains('platform:windows'))
-          SupportedPlatform.windows,
+        if (metrics.tags.contains('platform:windows')) SupportedPlatform.windows,
       ],
     );
   }
@@ -135,11 +128,11 @@ class Package {
 
 @embedded
 class Dependency {
-  Dependency({this.name = 'unknown', this.constraint = 'any'});
+  Dependency({this.name = 'unknown', this.versionConstraint = 'any'});
 
   final String name;
 
-  final String constraint;
+  final String versionConstraint;
 
   static List<Dependency> fromDependencies(
     Map<String, DependencyReference> dependenciesMap,
@@ -147,9 +140,8 @@ class Dependency {
     final dependencies = <Dependency>[];
     for (final package in dependenciesMap.keys) {
       final dep = dependenciesMap[package]!;
-      final constraint =
-          dep is HostedReference ? dep.versionConstraint.toString() : 'unknown';
-      dependencies.add(Dependency(name: package, constraint: constraint));
+      final constraint = dep is HostedReference ? dep.versionConstraint.toString() : 'unknown';
+      dependencies.add(Dependency(name: package, versionConstraint: constraint));
     }
 
     return dependencies;
