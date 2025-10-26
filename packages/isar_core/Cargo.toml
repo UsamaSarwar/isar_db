@@ -2,7 +2,7 @@
 name = "isar-core"
 version = "1.0.0"
 authors = ["Usama Sarwar <usamasarwar@users.noreply.github.com>"]
-edition = "2021"
+edition = "2025"
 license = "Apache-2.0"
 repository = "https://github.com/usamasarwar/isar_db"
 description = "Isar DB Core - Fast, easy-to-use, fully async NoSQL database for Flutter"
@@ -23,7 +23,7 @@ parking_lot = "0.12"
 proc-macro2 = "1"
 arc-swap = "1.7"
 
-libsqlite3-sys = { git = "https://github.com/isar/rusqlite.git", branch = "wasm-2", features=["bundled"], optional = true  }
+libsqlite3-sys = { git = "https://github.com/usamasarwar/rusqlite.git", branch = "wasm-2", features=["bundled"], optional = true  }
 mdbx-sys = { package = "mdbx-sys", path = "../mdbx_sys", optional = true  }
 
 [target.'cfg(target_os = "windows")'.dependencies]
