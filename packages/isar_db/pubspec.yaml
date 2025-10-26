@@ -10,9 +10,9 @@ funding:
 topics:
   - database
   - isar
-  - sqlite
-  - flutter
-  - dart
+  - nosql
+  - local-storage
+  - local-db
 
 environment:
   sdk: ">=3.9.2 <4.0.0"
