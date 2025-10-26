@@ -71,8 +71,7 @@ abstract class IsarCollection<ID, OBJ> {
   ///
   /// The json objects must have the same structure as the objects in this
   /// collection. Otherwise an exception will be thrown.
-  int importJson(List<Map<String, dynamic>> json) =>
-      importJsonString(jsonEncode(json));
+  int importJson(List<Map<String, dynamic>> json) => importJsonString(jsonEncode(json));
 
   /// Import a list of json objects.
   ///
@@ -123,14 +122,18 @@ extension CollectionAsync<ID, OBJ> on IsarCollection<ID, OBJ> {
     return isar.readAsync((isar) => isar.collection<ID, OBJ>().getAll(ids));
   }
 
+  /// Returns the total number of objects in this collection asynchronously.
+  ///
+  /// This method is extremely fast and independent of the
+  /// number of objects in the collection.
   Future<int> countAsync() {
     return isar.readAsync((isar) => isar.collection<ID, OBJ>().count());
   }
 
+  /// Calculates the size of the collection in bytes asynchronously.
   Future<int> getSizeAsync({bool includeIndexes = false}) {
     return isar.readAsync(
-      (isar) =>
-          isar.collection<ID, OBJ>().getSize(includeIndexes: includeIndexes),
+      (isar) => isar.collection<ID, OBJ>().getSize(includeIndexes: includeIndexes),
     );
   }
 }

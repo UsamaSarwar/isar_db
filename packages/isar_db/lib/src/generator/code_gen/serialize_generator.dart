@@ -2,38 +2,44 @@
 part of '../isar_db_generator.dart';
 
 String _generateSerialize(ObjectInfo object) {
-  var code = '''
+  final buffer = StringBuffer();
+  buffer.write(
+    '''
   @isarProtected
-  int serialize${object.dartName}(IsarWriter writer, ${object.dartName} object) {''';
+  int serialize${object.dartName}(IsarWriter writer, ${object.dartName} object) {''',
+  );
 
   for (final property in object.properties) {
     if (property.isId && property.type == IsarType.long) {
       continue;
     }
 
-    code += _writeProperty(
-      index: property.index.toString(),
-      type: property.type,
-      nullable: property.nullable,
-      elementNullable: property.elementNullable,
-      typeClassName: property.typeClassName,
-      value: 'object.${property.dartName}',
-      enumProperty: property.enumProperty,
+    buffer.write(
+      _writeProperty(
+        index: property.index.toString(),
+        type: property.type,
+        nullable: property.nullable,
+        elementNullable: property.elementNullable,
+        typeClassName: property.typeClassName,
+        value: 'object.${property.dartName}',
+        enumProperty: property.enumProperty,
+      ),
     );
   }
 
   final idProp = object.idProperty;
   if (idProp != null) {
     if (idProp.type == IsarType.long) {
-      code += 'return object.${idProp.dartName};';
+      buffer.write('return object.${idProp.dartName};');
     } else {
-      code += 'return Isar.fastHash(object.${idProp.dartName});';
+      buffer.write('return Isar.fastHash(object.${idProp.dartName});');
     }
   } else {
-    code += 'return 0;';
+    buffer.write('return 0;');
   }
 
-  return '$code}';
+  buffer.write('}');
+  return buffer.toString();
 }
 
 String _writeProperty({
@@ -46,12 +52,11 @@ String _writeProperty({
   required String value,
   required String? enumProperty,
 }) {
-  final enumGetter =
-      enumProperty != null
-          ? nullable
-              ? '?.$enumProperty'
-              : '.$enumProperty'
-          : '';
+  final enumGetter = enumProperty != null
+      ? nullable
+            ? '?.$enumProperty'
+            : '.$enumProperty'
+      : '';
   switch (type) {
     case IsarType.bool:
       if (nullable) {
@@ -101,23 +106,25 @@ String _writeProperty({
         IsarCore.writeString($writer, $index, $value$enumGetter);''';
       }
     case IsarType.object:
-      var code = '''
+      final buffer = StringBuffer();
+      buffer.write('''
       {
-        final value = $value;''';
+        final value = $value;''');
       if (nullable) {
-        code += '''
+        buffer.write('''
         if (value == null) {
           IsarCore.writeNull($writer, $index);
-        } else {''';
+        } else {''');
       }
-      code += '''
+      buffer.write('''
       final objectWriter = IsarCore.beginObject($writer, $index);
       serialize$typeClassName(objectWriter, value);
-      IsarCore.endObject($writer, objectWriter);''';
+      IsarCore.endObject($writer, objectWriter);''');
       if (nullable) {
-        code += '}';
+        buffer.write('}');
       }
-      return '$code}';
+      buffer.write('}');
+      return buffer.toString();
     case IsarType.json:
       return 'IsarCore.writeString($writer, $index, isarJsonEncode($value));';
     case IsarType.boolList:
@@ -129,25 +136,27 @@ String _writeProperty({
     case IsarType.doubleList:
     case IsarType.stringList:
     case IsarType.objectList:
-      var code = '''
+      final buffer = StringBuffer();
+      buffer.write('''
       {
-        final list = $value;''';
+        final list = $value;''');
       if (nullable) {
-        code += '''
+        buffer.write('''
         if (list == null) {
           IsarCore.writeNull($writer, $index);
-        } else {''';
+        } else {''');
       }
-      code += '''
+      buffer.write('''
       final listWriter = IsarCore.beginList(writer, $index, list.length);
       for (var i = 0; i < list.length; i++) {
         ${_writeProperty(writer: 'listWriter', index: 'i', type: type.scalarType, nullable: elementNullable!, typeClassName: typeClassName, value: 'list[i]', enumProperty: enumProperty)}
       }
       IsarCore.endList(writer, listWriter);
-      ''';
+      ''');
       if (nullable) {
-        code += '}';
+        buffer.write('}');
       }
-      return '$code}';
+      buffer.write('}');
+      return buffer.toString();
   }
 }

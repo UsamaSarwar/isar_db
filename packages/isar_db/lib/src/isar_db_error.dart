@@ -58,6 +58,10 @@ class ObjectLimitReachedError extends IsarError {
 }
 
 /// Invalid Isar instance.
+///
+/// This error is thrown when provided resources do not belong to this Isar
+/// instance. This can happen when you try to use a query or transaction
+/// from a different Isar instance.
 class InstanceMismatchError extends IsarError {
   @override
   String get name => 'InstanceMismatchError';
@@ -71,6 +75,10 @@ class InstanceMismatchError extends IsarError {
 
 /// Something went wrong during encryption/decryption. Most likely the
 /// encryption key is wrong.
+///
+/// This error is thrown when the database cannot be encrypted or decrypted.
+/// Make sure that the encryption key is correct and that the database is not
+/// corrupted.
 class EncryptionError extends IsarError {
   @override
   String get name => 'EncryptionError';
@@ -83,6 +91,10 @@ class EncryptionError extends IsarError {
 }
 
 /// The database is full.
+///
+/// This error is thrown when the database has reached its maximum size.
+/// Please increase the maxSizeMiB parameter when opening Isar. Alternatively
+/// you can compact the database by specifying a CompactCondition when opening Isar.
 class DatabaseFullError extends IsarError {
   @override
   final name = 'DatabaseFullError';

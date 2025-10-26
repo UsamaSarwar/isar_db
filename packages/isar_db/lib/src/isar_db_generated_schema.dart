@@ -52,7 +52,8 @@ final class IsarObjectConverter<ID, OBJ> {
 
   /// @nodoc
   T withType<T>(
-    T Function<IdType, ObjType>(IsarObjectConverter<IdType, ObjType> converter) f,
+    T Function<IdType, ObjType>(IsarObjectConverter<IdType, ObjType> converter)
+    f,
   ) => f(this);
 }
 

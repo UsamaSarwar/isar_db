@@ -1,0 +1,114 @@
+name: Build Release Binaries
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to build (e.g., 1.0.1)"
+        required: true
+        default: "1.0.1"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: linux
+            name: Linux
+          - os: macos-latest
+            target: macos
+            name: macOS
+          - os: windows-latest
+            target: windows
+            name: Windows
+          - os: ubuntu-latest
+            target: wasm
+            name: WASM
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - name: Cache cargo registry
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: Install wasm-opt (WASM only)
+        if: matrix.target == 'wasm'
+        run: cargo install wasm-opt
+
+      - name: Build binaries
+        run: |
+          if [ "${{ matrix.target }}" = "wasm" ]; then
+            ./build_releases_cross.sh ${{ github.event.inputs.version || github.ref_name }} wasm
+          else
+            ./build_releases_cross.sh ${{ github.event.inputs.version || github.ref_name }} ${{ matrix.target }}
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: binaries-${{ matrix.name }}
+          path: releases/
+          retention-days: 30
+
+  create-release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - name: Prepare release files
+        run: |
+          mkdir -p release-files
+
+          # Copy all binaries from artifacts
+          find artifacts -name "*.so" -o -name "*.dylib" -o -name "*.dll" -o -name "*.wasm" -o -name "*.sha256" -o -name "version.txt" | while read file; do
+            cp "$file" release-files/
+          done
+
+          # Create a summary
+          echo "# Release Files" > release-files/README.md
+          echo "" >> release-files/README.md
+          echo "This release contains the following binaries:" >> release-files/README.md
+          echo "" >> release-files/README.md
+          ls -la release-files/ | grep -E '\.(so|dylib|dll|wasm)$' | while read line; do
+            echo "- \`$line\`" >> release-files/README.md
+          done
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release-files/*
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

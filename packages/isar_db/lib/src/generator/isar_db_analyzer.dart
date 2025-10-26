@@ -137,12 +137,11 @@ class _IsarAnalyzer {
       );
     }
 
-    final unknownConstructorParameter =
-        constructor.parameters
-            .where(
-              (p) => p.isRequired && !properties.any((e) => e.dartName == p.name),
-            )
-            .firstOrNull;
+    final unknownConstructorParameter = constructor.parameters
+        .where(
+          (p) => p.isRequired && !properties.any((e) => e.dartName == p.name),
+        )
+        .firstOrNull;
     if (unknownConstructorParameter != null) {
       _err(
         'Constructor parameter does not match a property.',
@@ -208,7 +207,9 @@ class _IsarAnalyzer {
         final element = enumElements[i];
         dynamic propertyValue = i;
         if (enumProperty != null) {
-          final property = element.computeConstantValue()!.getField(enumProperty.name)!;
+          final property = element.computeConstantValue()!.getField(
+            enumProperty.name,
+          )!;
           propertyValue = property.toBoolValue() ?? property.toIntValue() ?? property.toDoubleValue() ?? property.toStringValue();
         }
 
@@ -240,8 +241,9 @@ class _IsarAnalyzer {
     }
 
     final nullable = dartType.nullabilitySuffix != NullabilitySuffix.none || dartType is DynamicType;
-    final elementNullable =
-        type.isList ? dartType.scalarType.nullabilitySuffix != NullabilitySuffix.none || dartType.scalarType is DynamicType : null;
+    final elementNullable = type.isList
+        ? dartType.scalarType.nullabilitySuffix != NullabilitySuffix.none || dartType.scalarType is DynamicType
+        : null;
     if (isId) {
       if (type != IsarType.long && type != IsarType.string) {
         _err('Only int and String properties can be used as id.', property);
@@ -325,17 +327,19 @@ class _IsarAnalyzer {
         return '${element.name}.${firstConst.name}';
       } else if (element is ClassElement) {
         final defaultConstructor = _checkValidClass(element);
-        var code = '${element.name}(';
+        final buffer = StringBuffer();
+        buffer.write('${element.name}(');
         for (final param in defaultConstructor.parameters) {
           if (!param.isOptional) {
             if (param.isNamed) {
-              code += '${param.name}: ';
+              buffer.write('${param.name}: ');
             }
-            code += _defaultValue(param.type);
-            code += ', ';
+            buffer.write(_defaultValue(param.type));
+            buffer.write(', ');
           }
         }
-        return '$code)';
+        buffer.write(')');
+        return buffer.toString();
       }
     }
 

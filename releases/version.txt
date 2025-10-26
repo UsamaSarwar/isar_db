@@ -1,0 +1,5 @@
+Isar DB Release test-build
+Built on: Sun Oct 26 22:24:09 PKT 2025
+Git commit: 61048b98a82f78f57f09c70ed6aebb9b2b97516a
+Rust version: rustc 1.90.0 (1159e78c4 2025-09-14)
+Host OS: Darwin x86_64

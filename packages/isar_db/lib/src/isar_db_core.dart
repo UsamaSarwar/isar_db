@@ -15,12 +15,12 @@ abstract final class IsarCore {
   static Pointer<Uint32> countPtr = malloc<Uint32>();
   static Pointer<Bool> boolPtr = malloc<Bool>();
 
-  static final Pointer<Pointer<Uint8>> stringPtrPtr =
-      ptrPtr.cast<Pointer<Uint8>>();
+  static final Pointer<Pointer<Uint8>> stringPtrPtr = ptrPtr
+      .cast<Pointer<Uint8>>();
   static Pointer<Uint8> get stringPtr => stringPtrPtr.ptrValue;
 
-  static final Pointer<Pointer<CIsarReader>> readerPtrPtr =
-      ptrPtr.cast<Pointer<CIsarReader>>();
+  static final Pointer<Pointer<CIsarReader>> readerPtrPtr = ptrPtr
+      .cast<Pointer<CIsarReader>>();
   static Pointer<CIsarReader> get readerPtr => readerPtrPtr.ptrValue;
 
   static Pointer<Uint16> _nativeStringPtr = nullptr;

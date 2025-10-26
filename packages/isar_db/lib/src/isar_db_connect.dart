@@ -3,7 +3,11 @@
 part of 'package:isar_db/isar_db.dart';
 
 abstract class _IsarConnect {
-  static const Map<ConnectAction, Future<dynamic> Function(Map<String, dynamic>)> _handlers = {
+  static const Map<
+    ConnectAction,
+    Future<dynamic> Function(Map<String, dynamic>)
+  >
+  _handlers = {
     ConnectAction.listInstances: _listInstances,
     ConnectAction.getSchemas: _getSchemas,
     ConnectAction.watchInstance: _watchInstance,
@@ -36,7 +40,9 @@ abstract class _IsarConnect {
     for (final handler in _handlers.entries) {
       registerExtension(handler.key.method, (method, parameters) async {
         try {
-          final args = parameters.containsKey('args') ? jsonDecode(parameters['args']!) as Map<String, dynamic> : <String, dynamic>{};
+          final args = parameters.containsKey('args')
+              ? jsonDecode(parameters['args']!) as Map<String, dynamic>
+              : <String, dynamic>{};
           final result = <String, dynamic>{'result': await handler.value(args)};
           return ServiceExtensionResponse.result(jsonEncode(result));
         } on Exception catch (e) {
@@ -216,7 +222,9 @@ abstract class _IsarConnect {
       }
 
       await isar.writeAsync(
-        (isar) => isar.collectionByIndex<dynamic, dynamic>(colIndex).importJson(objects),
+        (isar) => isar
+            .collectionByIndex<dynamic, dynamic>(colIndex)
+            .importJson(objects),
       );
     }
   }

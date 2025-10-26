@@ -104,7 +104,10 @@ class IsarCorePlatformImpl implements IsarCorePlatform {
       v2 = t2 & 65535;
     }
 
-    return (v3 & 15) * 281474976710656 + v2 * 4294967296 + v1 * 65536 + (v0 ^ (v3 >> 4));
+    return (v3 & 15) * 281474976710656 +
+        v2 * 4294967296 +
+        v1 * 65536 +
+        (v0 ^ (v3 >> 4));
   }
 
   @override

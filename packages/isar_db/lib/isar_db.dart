@@ -7,7 +7,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:isar_db/src/isar_db_connect_api.dart';
-import 'package:isar_db/src/native/native.dart' if (dart.library.js) 'package:isar_db/src/web/web.dart';
+import 'package:isar_db/src/native/native.dart'
+    if (dart.library.js) 'package:isar_db/src/web/web.dart';
 import 'package:meta/meta.dart';
 import 'package:meta/meta_meta.dart';
 

@@ -6,9 +6,11 @@ const TypeChecker _dateTimeChecker = TypeChecker.fromRuntime(DateTime);
 const TypeChecker _durationChecker = TypeChecker.fromRuntime(Duration);
 
 extension on DartType {
-  bool get isDartCoreDateTime => element != null && _dateTimeChecker.isExactly(element!);
+  bool get isDartCoreDateTime =>
+      element != null && _dateTimeChecker.isExactly(element!);
 
-  bool get isDartCoreDuration => element != null && _durationChecker.isExactly(element!);
+  bool get isDartCoreDuration =>
+      element != null && _durationChecker.isExactly(element!);
 
   IsarType? get _primitiveIsarType {
     if (isDartCoreBool) {

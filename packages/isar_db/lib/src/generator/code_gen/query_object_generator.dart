@@ -9,7 +9,8 @@ String _generateQueryObjects(ObjectInfo oi) {
       continue;
     }
     final name = property.dartName.decapitalize();
-    code += '''
+    code +=
+        '''
       QueryBuilder<${oi.dartName}, ${oi.dartName}, QAfterFilterCondition> $name(FilterQuery<${property.typeClassName}> q) {
         return QueryBuilder.apply(this, (query) {
           return query.object(q, ${property.index});

@@ -28,6 +28,9 @@ pub mod value;
 pub mod watcher;
 pub mod writer;
 
+#[cfg(feature = "wasm")]
+mod wasm;
+
 #[cfg(feature = "native")]
 type NInstance = <NativeInstance as IsarInstance>::Instance;
 #[cfg(feature = "sqlite")]

@@ -61,7 +61,9 @@ class ConnectSchemasPayload {
 
   factory ConnectSchemasPayload.fromJson(Map<String, dynamic> json) {
     return ConnectSchemasPayload(
-      (json['schemas'] as List).map((e) => IsarSchema.fromJson(e as Map<String, dynamic>)).toList(),
+      (json['schemas'] as List)
+          .map((e) => IsarSchema.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
   }
 
@@ -87,7 +89,9 @@ class ConnectQueryPayload {
     return ConnectQueryPayload(
       instance: json['instance'] as String,
       collection: json['collection'] as String,
-      filter: json['filter'] != null ? _filterFromJson(json['filter'] as Map<String, dynamic>) : null,
+      filter: json['filter'] != null
+          ? _filterFromJson(json['filter'] as Map<String, dynamic>)
+          : null,
       offset: json['offset'] as int?,
       limit: json['limit'] as int?,
       sortProperty: json['sortProperty'] as int?,
@@ -147,11 +151,15 @@ class ConnectQueryPayload {
         return IsNullCondition(property: property!);
       case 'and':
         return AndGroup(
-          (json['filters'] as List).map((e) => _filterFromJson(e as Map<String, dynamic>)).toList(),
+          (json['filters'] as List)
+              .map((e) => _filterFromJson(e as Map<String, dynamic>))
+              .toList(),
         );
       case 'or':
         return OrGroup(
-          (json['filters'] as List).map((e) => _filterFromJson(e as Map<String, dynamic>)).toList(),
+          (json['filters'] as List)
+              .map((e) => _filterFromJson(e as Map<String, dynamic>))
+              .toList(),
         );
       case 'not':
         return NotGroup(

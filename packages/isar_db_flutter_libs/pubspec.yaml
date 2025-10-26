@@ -6,8 +6,8 @@ homepage: https://github.com/usamasarwar/isar_db
 issue_tracker: https://github.com/usamasarwar/isar_db/issues
 
 environment:
-  sdk: ">=3.9.2 <4.0.0"
-  flutter: ">=3.35.7"
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.22.0"
 
 dependencies:
   flutter:
@@ -27,7 +27,7 @@ flutter:
         pluginClass: IsarDbFlutterLibsPlugin
       windows:
         pluginClass: IsarDbFlutterLibsPlugin
-            web:
+      web:
         default_package: isar_db_flutter_libs
 
   assets:

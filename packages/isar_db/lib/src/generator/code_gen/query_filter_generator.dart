@@ -7,50 +7,51 @@ class _FilterGenerator {
   final String objName;
 
   String generate() {
-    var code =
-        'extension ${objName}QueryFilter on QueryBuilder<$objName, $objName, '
-        'QFilterCondition> {';
+    final buffer = StringBuffer();
+    buffer.write(
+      'extension ${objName}QueryFilter on QueryBuilder<$objName, $objName, '
+      'QFilterCondition> {',
+    );
     for (final property in object.properties) {
       if (property.type == IsarType.json) {
         continue;
       }
 
       if (property.nullable) {
-        code += generateIsNull(property);
-        code += generateIsNotNull(property);
+        buffer.write(generateIsNull(property));
+        buffer.write(generateIsNotNull(property));
       }
       if ((property.elementNullable ?? false) && !property.type.isObject) {
-        code += generateElementIsNull(property);
-        code += generateElementIsNotNull(property);
+        buffer.write(generateElementIsNull(property));
+        buffer.write(generateElementIsNotNull(property));
       }
 
       if (!property.type.isObject) {
-        code += generateEqual(property);
+        buffer.write(generateEqual(property));
 
         if (!property.type.isBool) {
-          code += generateGreater(property);
-          code += generateLess(property);
-          code += generateBetween(property);
+          buffer.write(generateGreater(property));
+          buffer.write(generateLess(property));
+          buffer.write(generateBetween(property));
         }
       }
 
       if (property.type.isString && !property.isEnum) {
-        code += generateStringStartsWith(property);
-        code += generateStringEndsWith(property);
-        code += generateStringContains(property);
-        code += generateStringMatches(property);
-        code += generateStringIsEmpty(property);
-        code += generateStringIsNotEmpty(property);
+        buffer.write(generateStringStartsWith(property));
+        buffer.write(generateStringEndsWith(property));
+        buffer.write(generateStringContains(property));
+        buffer.write(generateStringMatches(property));
+        buffer.write(generateStringIsEmpty(property));
+        buffer.write(generateStringIsNotEmpty(property));
       }
 
       if (property.type.isList) {
-        code += generateListIsEmpty(property);
-        code += generateListIsNotEmpty(property);
+        buffer.write(generateListIsEmpty(property));
+        buffer.write(generateListIsNotEmpty(property));
       }
     }
-    return '''
-    $code
-  }''';
+    buffer.write('}');
+    return buffer.toString();
   }
 
   String mPrefix(PropertyInfo p, [bool listElement = true]) {
