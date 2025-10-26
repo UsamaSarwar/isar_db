@@ -10,14 +10,8 @@
   <a href="https://pub.dev/packages/isar_db">
     <img src="https://img.shields.io/pub/v/isar_db?label=pub.dev&labelColor=333940&logo=dart">
   </a>
-  <a href="https://github.com/usamasarwar/isar_db/actions/workflows/test.yaml">
-    <img src="https://img.shields.io/github/actions/workflow/status/usamasarwar/isar_db/test.yaml?branch=main&label=tests&labelColor=333940&logo=github">
-  </a>
   <a href="https://app.codecov.io/gh/usamasarwar/isar_db">
     <img src="https://img.shields.io/codecov/c/github/usamasarwar/isar_db?logo=codecov&logoColor=fff&labelColor=333940&flag=isar_db">
-  </a>
-  <a href="https://t.me/isardb">
-    <img src="https://img.shields.io/static/v1?label=join&message=Isar%20%26%20Hive&labelColor=333940&logo=telegram&logoColor=white&color=229ED9">
   </a>
   <a href="https://twitter.com/usamasarwarpro">
     <img src="https://img.shields.io/twitter/follow/usamasarwarpro?style=social">
@@ -34,21 +28,19 @@
 
 ## About Isar DB
 
-**Isar DB** is an enhanced fork of the original Isar Database project. The original Isar project was discontinued and is no longer maintained, so this fork was created to provide continued maintenance and improvements to the Isar ecosystem.
+**Isar DB** is an enhanced version of Isar Database with continued maintenance and improvements.
 
-**Current Maintainer:** [Usama Sarwar](https://www.usama.dev) ([GitHub](https://github.com/UsamaSarwar))
+**Maintainer:** [Usama Sarwar](https://www.usama.dev) ([GitHub](https://github.com/UsamaSarwar))
 
 ### Why Isar DB?
 
-- **Continued Maintenance**: The original Isar project is no longer maintained, so this fork provides active development and bug fixes
-- **Production Ready**: Upgraded dependencies and modern Dart/Flutter support for production use
-- **Enhanced Features**: Additional improvements and optimizations beyond the original project
+- **Active Maintenance**: Regular updates and bug fixes
+- **Production Ready**: Upgraded dependencies and modern Dart/Flutter support
+- **Enhanced Features**: Additional improvements and optimizations
 - **Community Driven**: Open to contributions and community feedback
 - **Future-Proof**: Regular updates and compatibility with latest Flutter/Dart versions
 
-### Migration from Original Isar
-
-Since the original Isar project is no longer maintained, migrating to `isar_db` is essential for continued support and updates. The migration is simple:
+### Getting Started
 
 ```yaml
 dependencies:
@@ -56,7 +48,7 @@ dependencies:
   isar_db_flutter_libs: ^1.0.0
 ```
 
-The API remains the same, so no code changes are required! This fork maintains full compatibility with the original Isar API while providing:
+This package maintains full compatibility with Isar API while providing:
 
 - **Updated Dependencies**: Latest analyzer, build tools, and Flutter compatibility
 - **Bug Fixes**: Resolved issues from the original project
@@ -68,18 +60,18 @@ The API remains the same, so no code changes are required! This fork maintains f
 > 1. River in Bavaria, Germany.
 > 2. [Crazy fast](#benchmarks) NoSQL database that is a joy to use.
 
-## Fork Status
+## Status
 
-This is a community-maintained fork of the original Isar Database project. The original project was discontinued and is no longer maintained. This fork provides:
+Isar DB is actively maintained and provides:
 
 - ✅ **Production Ready**: Fully tested and ready for production use
 - ✅ **Active Maintenance**: Regular updates and bug fixes
 - ✅ **Modern Dependencies**: Updated to latest Flutter/Dart versions
 - ✅ **Community Support**: Active development and community contributions
 
-## What's New in This Fork
+## What's New
 
-This fork includes several important improvements over the original Isar project:
+Isar DB includes several important improvements:
 
 - **Updated Dependencies**: Latest analyzer (8.4.0), build tools (4.0.2), and source_gen (4.0.2)
 - **Modern Flutter Support**: Compatible with latest Flutter and Dart versions

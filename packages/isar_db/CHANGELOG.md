@@ -1,6 +1,6 @@
 ## 1.0.0 - Isar DB Fork
 
-This is the initial release of Isar DB, a community-maintained fork of the original Isar Database project. The original Isar project was discontinued and is no longer maintained, so this fork was created to provide continued support and improvements.
+This is the initial release of Isar DB, an enhanced version of Isar Database with continued maintenance and improvements.
 
 **Maintainer:** [Usama Sarwar](https://www.usama.dev) ([GitHub](https://github.com/UsamaSarwar))
 
