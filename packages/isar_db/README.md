@@ -64,20 +64,20 @@ This package maintains full compatibility with Isar API while providing:
 
 Here's what's included in each package:
 
-| Feature | Original Isar | Isar DB |
-|---------|---------------|---------|
-| **Core Database Engine** | ✅ Full ISAR NoSQL engine | ✅ Full ISAR NoSQL engine |
-| **Flutter Support** | ✅ iOS, Android, Web, Desktop | ✅ iOS, Android, Web, Desktop |
-| **Maintenance Status** | ❌ No longer maintained | ✅ Active maintenance |
-| **Dart/Flutter Compatibility** | Old versions (Dart 3.0) | ✅ Latest (Dart 3.9.2+, Flutter 3.35.7+) |
-| **Dependencies** | Outdated (analyzer 6.x, build 2.x) | ✅ Latest (analyzer 7.x, build 4.x) |
-| **Code Generation** | Basic | ✅ Enhanced & optimized |
-| **Bug Fixes** | ❌ No updates | ✅ Regular bug fixes |
-| **Production Ready** | ⚠️ Legacy | ✅ Fully tested (583 tests passing) |
-| **Web Persistence** | Basic IndexedDB | ✅ Enhanced with OPFS support |
-| **Android Compatibility** | Standard page sizes | ✅ 16KB page size support |
-| **Documentation** | Original docs | ✅ Updated and modernized |
-| **Community Support** | None | ✅ Active GitHub discussions |
+| Feature                        | Original Isar                      | Isar DB                                  |
+| ------------------------------ | ---------------------------------- | ---------------------------------------- |
+| **Core Database Engine**       | ✅ Full ISAR NoSQL engine          | ✅ Full ISAR NoSQL engine                |
+| **Flutter Support**            | ✅ iOS, Android, Web, Desktop      | ✅ iOS, Android, Web, Desktop            |
+| **Maintenance Status**         | ❌ No longer maintained            | ✅ Active maintenance                    |
+| **Dart/Flutter Compatibility** | Old versions (Dart 3.0)            | ✅ Latest (Dart 3.9.2+, Flutter 3.35.7+) |
+| **Dependencies**               | Outdated (analyzer 6.x, build 2.x) | ✅ Latest (analyzer 7.x, build 4.x)      |
+| **Code Generation**            | Basic                              | ✅ Enhanced & optimized                  |
+| **Bug Fixes**                  | ❌ No updates                      | ✅ Regular bug fixes                     |
+| **Production Ready**           | ⚠️ Legacy                          | ✅ Fully tested (583 tests passing)      |
+| **Web Persistence**            | Basic IndexedDB                    | ✅ Enhanced with OPFS support            |
+| **Android Compatibility**      | Standard page sizes                | ✅ 16KB page size support                |
+| **Documentation**              | Original docs                      | ✅ Updated and modernized                |
+| **Community Support**          | None                               | ✅ Active GitHub discussions             |
 
 ## What's New in Isar DB
 
@@ -105,8 +105,6 @@ Isar database can do much more (and we are just getting started)
 - 🧪 **ACID semantics**. Rely on database consistency
 - 💃 **Static typing**. Compile-time checked and autocompleted queries
 - ✨ **Beautiful documentation**. Readable, easy to understand and ever-improving
-
-Join the [Telegram group](https://t.me/isardb) for discussion and sneak peeks of new versions of the DB.
 
 If you want to say thank you, star us on GitHub and like us on pub.dev 🙌💙
 
