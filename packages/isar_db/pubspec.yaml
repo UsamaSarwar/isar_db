@@ -10,10 +10,7 @@ funding:
 topics:
   - database
   - isar
-  - isar-db
   - sqlite
-  - encryption
-  - storage
   - flutter
   - dart
 
