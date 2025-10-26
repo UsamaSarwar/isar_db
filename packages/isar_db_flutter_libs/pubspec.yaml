@@ -1,6 +1,6 @@
 name: isar_db_flutter_libs
 description: Isar Core native binaries for the Isar Database (isar_db). Required dependency for Flutter apps using isar_db. Enhanced fork with Android 16KB page size support and improved web persistence.
-version: 1.0.0
+version: 1.0.1+1
 repository: https://github.com/usamasarwar/isar_db
 homepage: https://github.com/usamasarwar/isar_db
 issue_tracker: https://github.com/usamasarwar/isar_db/issues
@@ -28,3 +28,7 @@ flutter:
       windows:
         pluginClass: IsarDbFlutterLibsPlugin
       web:
+        default_package: isar_db_flutter_libs
+  
+  assets:
+    - web/isar.wasm
